@@ -1,0 +1,19 @@
+# Core -- required
+requests==2.32.3
+beautifulsoup4==4.12.3
+pillow==10.4.0
+pypdf==5.0.1
+python-dotenv==1.0.1
+
+# Optional -- only needed for specific features. The script degrades
+# gracefully (with a log message) if these aren't installed.
+
+# --dynamic flag (JS-rendered content via a real headless browser):
+#   pip install playwright
+#   playwright install chromium
+
+# OCR on images (reads password text baked visually into a photo/screenshot):
+#   pip install pytesseract
+#   + the tesseract binary itself, e.g.:
+#     macOS:  brew install tesseract
+#     Ubuntu: apt install tesseract-ocr

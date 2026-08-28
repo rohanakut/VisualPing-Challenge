@@ -2,14 +2,6 @@
 ASCII, JS char-code arrays, reversed strings, percent/HTML/unicode
 escapes, ROT13, zero-width-character insertion, and unicode confusable
 normalization.
-
-"Passwords are not always stored the way you'd first expect" -- these are
-the cheap, common tricks worth checking on every blob of text the crawler
-sees, regardless of where it came from.
-
-find_encoded_passwords() is a pure function: given text, it returns every
-decoding that happens to contain the VISUALPING{ marker, as (label,
-decoded_text) pairs, for the caller to run the real password regex over.
 """
 import base64
 import codecs
@@ -40,9 +32,6 @@ def find_encoded_passwords(text: str) -> list[tuple[str, str]]:
         except Exception:
             pass
 
-    # hex-encoded ASCII text (distinct from the password's own hex digits --
-    # this looks for hex that decodes to readable text containing the
-    # literal "VISUALPING{" string)
     for m in HEX_ASCII_CANDIDATE_RE.finditer(text):
         candidate = m.group(0)
         if len(candidate) % 2 != 0:
@@ -64,12 +53,10 @@ def find_encoded_passwords(text: str) -> list[tuple[str, str]]:
         except Exception:
             pass
 
-    # reversed string, e.g. "}10edbaed0000{GNIPLAUSIV"
     reversed_text = text[::-1]
     if MARKER in reversed_text:
         hits.append(("reversed", reversed_text))
 
-    # percent-encoding, e.g. VISUALPING%7B...%7D
     try:
         unescaped = unquote(text)
         if unescaped != text and MARKER in unescaped:
@@ -100,9 +87,6 @@ def find_encoded_passwords(text: str) -> list[tuple[str, str]]:
     if MARKER in rot13d:
         hits.append(("rot13-decoded", rot13d))
 
-    # Zero-width characters: a password can be made to LOOK completely
-    # normal to a human while invisible chars are stitched between its
-    # characters, silently breaking a naive regex match.
     stripped = text
     for zw in ZERO_WIDTH_CHARS:
         stripped = stripped.replace(zw, "")

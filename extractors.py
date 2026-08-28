@@ -1,15 +1,6 @@
 """Content-type-aware processing. Given a fetched resource, scan it for
 passwords (via the shared PasswordScanner) and return any new URLs it
 references, so the crawler can decide whether to queue them.
-
-Every process_*() function has the same shape:
-    process_x(url, content, scanner) -> (new_links: list[str], is_html_page: bool)
-
-Verbose per-resource dumps (full JS/CSS bodies, EXIF tag listings, PNG
-chunk detail) go through log.debug() rather than being printed
-unconditionally -- pass --verbose on the CLI to see them; this keeps
-default output readable while preserving the same diagnostic capability
-the original script had.
 """
 from __future__ import annotations
 

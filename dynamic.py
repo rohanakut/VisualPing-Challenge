@@ -1,8 +1,6 @@
 """Optional second pass using a real, JS-executing browser to catch
 content only reachable by running JavaScript: client-side-built nav,
 XHR/fetch-triggered content, etc.
-
-Requires: pip install playwright && playwright install chromium
 """
 import logging
 from urllib.parse import urlparse

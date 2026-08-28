@@ -1,10 +1,4 @@
-"""Loads scraper configuration from environment variables / .env file.
 
-The original script hardcoded the Basic Auth username/password as source
-constants. Pulling them into .env means the credentials aren't sitting in
-version control, while every tuning knob (crawl-trap limits, delays, etc.)
-keeps the same defaults the original had.
-"""
 import os
 from dataclasses import dataclass
 

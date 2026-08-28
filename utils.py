@@ -1,17 +1,4 @@
-"""URL helpers plus crawler-trap protection.
-
-Sites sometimes have calendars, "related content" widgets, infinite
-pagination, or session-id query params that generate unbounded unique
-URLs. TrapTracker canonicalizes each path (numbers/hex tokens -> a
-placeholder) and caps how many URLs of the same *shape* get fully
-expanded vs. sampled vs. skipped outright, so one trap can't consume the
-whole crawl budget.
-
-NOTE (carried over from the original): this shape-based cap is a generic
-safety net. Real known traps (e.g. a specific /report/ path) should be
-handled precisely via known_trap_prefixes instead -- collapsing every
-query-string variation of a path into one bucket can cut off legitimate
-paginated index pages too early if the limits are set low.
+"""URL helpers plus crawler-trap protection to avoid infinte loop
 """
 import re
 from collections import defaultdict

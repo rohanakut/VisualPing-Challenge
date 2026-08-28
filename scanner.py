@@ -1,8 +1,4 @@
-"""The one place that recognizes VISUALPING{...} passwords and records
-where each was first seen. Replaces the original's module-level
-found_passwords / password_sources globals with an object the crawler and
-extractors both hold a reference to.
-"""
+
 import logging
 import re
 

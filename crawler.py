@@ -1,11 +1,4 @@
-"""Fetches resources over HTTP (Basic Auth on every request), dispatches
-each response to the right extractor, and drives the BFS crawl with
-built-in trap protection.
 
-This is the same crawl this script always did -- global mutable state
-(found passwords, visited sets, pattern counts, inline-script hashes) is
-now held on a Crawler instance instead of scattered module-level globals.
-"""
 from __future__ import annotations
 
 import logging
@@ -22,8 +15,6 @@ from utils import TrapTracker, is_page_url_guess, normalize_url, same_domain
 
 log = logging.getLogger("crawler")
 
-# A real browser requests these automatically even with no <a>/<link>
-# pointing to them -- favicon in particular.
 WELL_KNOWN_PATHS = (
     "/favicon.ico", "/apple-touch-icon.png", "/apple-touch-icon-precomposed.png",
     "/manifest.json", "/site.webmanifest",
